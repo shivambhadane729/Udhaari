@@ -4,13 +4,13 @@ import { formatCurrency } from '../utils/engine';
 import { 
   Plus, 
   Search, 
-  Filter, 
   ShoppingBag, 
   Coffee, 
   Car, 
   Home, 
-  MoreHorizontal,
-  Trash2
+  Trash2,
+  Calendar,
+  Tag
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -51,62 +51,71 @@ const Expenses = () => {
   return (
     <div className="flex min-h-screen bg-background text-zinc-100">
       <Sidebar />
-      <main className="ml-64 flex-1 p-8">
-        <header className="mb-10 flex items-end justify-between">
+      <main className="ml-64 flex-1 p-12 max-w-7xl mx-auto w-full">
+        <header className="mb-14 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-1">Personal Expenses</h1>
-            <p className="text-zinc-500">Track your individual spending</p>
+            <h1 className="text-4xl font-extrabold tracking-tight">Personal Spending</h1>
+            <p className="text-zinc-500 mt-2 font-medium">Individual transactions tracking</p>
           </div>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="btn-primary flex items-center gap-2"
+            className="btn-primary flex items-center gap-2 group"
           >
-            <Plus size={18} />
-            Add Expense
+            <div className="bg-white/20 p-1 rounded-lg group-hover:rotate-90 transition-transform">
+              <Plus size={18} />
+            </div>
+            New Transaction
           </button>
         </header>
 
         {/* Filters */}
-        <div className="flex gap-4 mb-8">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
-            <input className="input pl-10" placeholder="Search transactions..." />
+        <div className="flex gap-4 mb-12">
+          <div className="relative flex-1 max-w-xl group">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-primary transition-colors" size={20} />
+            <input className="input pl-14 h-14" placeholder="Search your history..." />
           </div>
-          <button className="btn-secondary flex items-center gap-2">
-            <Filter size={18} />
-            Filters
+          <button className="btn-secondary h-14 px-8 font-bold flex items-center gap-2">
+            Recent Only
           </button>
         </div>
 
         {/* Expense List */}
-        <div className="space-y-3">
-          <AnimatePresence>
+        <div className="space-y-4">
+          <AnimatePresence initial={false}>
             {expenses.map((expense) => {
               const category = CATEGORIES.find(c => c.name === expense.category) || CATEGORIES[0];
               return (
                 <motion.div
                   key={expense.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  layout
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="glass-card py-4 flex items-center justify-between group"
+                  className="bg-surface-container border border-white/[0.03] p-5 rounded-[2rem] flex items-center justify-between group hover:border-white/10 transition-all hover:shadow-2xl"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`p-3 rounded-xl ${category.bg} ${category.color}`}>
-                      <category.icon size={22} />
+                  <div className="flex items-center gap-6">
+                    <div className={`w-14 h-14 flex items-center justify-center rounded-3xl ${category.bg} ${category.color}`}>
+                      <category.icon size={24} />
                     </div>
                     <div>
-                      <h3 className="font-semibold">{expense.title}</h3>
-                      <p className="text-zinc-500 text-sm">{expense.date}</p>
+                      <h3 className="text-lg font-bold text-zinc-100">{expense.title}</h3>
+                      <div className="flex items-center gap-4 mt-1">
+                        <span className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 uppercase tracking-widest">
+                          <Tag size={12} /> {expense.category}
+                        </span>
+                        <span className="flex items-center gap-1.5 text-xs font-bold text-zinc-500 uppercase tracking-widest">
+                          <Calendar size={12} /> {expense.date}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-6">
-                    <span className="text-lg font-bold">{formatCurrency(expense.amount)}</span>
+                  <div className="flex items-center gap-10">
+                    <span className="text-2xl font-black text-white">{formatCurrency(expense.amount)}</span>
                     <button 
                       onClick={() => deleteExpense(expense.id)}
-                      className="p-2 text-zinc-600 hover:text-accent opacity-0 group-hover:opacity-100 transition-all"
+                      className="p-3 text-zinc-700 hover:text-accent bg-white/[0.02] hover:bg-accent/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-100 scale-90"
                     >
-                      <Trash2 size={18} />
+                      <Trash2 size={20} />
                     </button>
                   </div>
                 </motion.div>
@@ -117,59 +126,68 @@ const Expenses = () => {
 
         {/* Add Modal */}
         {showAddModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="glass-card w-full max-w-md border-white/10"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              className="glass-card w-full max-w-xl border-white/5 bg-surface"
             >
-              <h2 className="text-xl font-bold mb-6">New Expense</h2>
-              <form onSubmit={handleAdd} className="space-y-4">
+              <div className="mb-8">
+                <h2 className="text-3xl font-black mb-2">New Expense</h2>
+                <p className="text-zinc-500 font-medium">Add a personal transaction to your history</p>
+              </div>
+
+              <form onSubmit={handleAdd} className="space-y-6">
                 <div>
-                  <label className="block text-sm text-zinc-400 mb-1.5">Description</label>
+                  <label className="block text-sm font-bold text-zinc-500 uppercase tracking-widest mb-3">What for?</label>
                   <input 
                     required 
-                    className="input" 
-                    placeholder="e.g. Starbucks Coffee"
+                    className="input h-14" 
+                    placeholder="e.g. Weekly Groceries"
                     value={newExpense.title}
                     onChange={e => setNewExpense({...newExpense, title: e.target.value})}
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm text-zinc-400 mb-1.5">Amount (₹)</label>
+                    <label className="block text-sm font-bold text-zinc-500 uppercase tracking-widest mb-3">How Much? (₹)</label>
                     <input 
                       required 
                       type="number" 
-                      className="input" 
+                      className="input h-14" 
                       placeholder="0.00"
                       value={newExpense.amount}
                       onChange={e => setNewExpense({...newExpense, amount: e.target.value})}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-zinc-400 mb-1.5">Category</label>
-                    <select 
-                      className="input"
-                      value={newExpense.category}
-                      onChange={e => setNewExpense({...newExpense, category: e.target.value})}
-                    >
-                      {CATEGORIES.map(c => (
-                        <option key={c.name} value={c.name}>{c.name}</option>
-                      ))}
-                    </select>
+                    <label className="block text-sm font-bold text-zinc-500 uppercase tracking-widest mb-3">Category</label>
+                    <div className="relative">
+                      <select 
+                        className="input h-14 appearance-none"
+                        value={newExpense.category}
+                        onChange={e => setNewExpense({...newExpense, category: e.target.value})}
+                      >
+                        {CATEGORIES.map(c => (
+                          <option key={c.name} value={c.name}>{c.name}</option>
+                        ))}
+                      </select>
+                      <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-500">
+                        <Plus size={18} className="rotate-45" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex gap-3 pt-4">
+                <div className="flex gap-4 pt-6">
                   <button 
                     type="button"
                     onClick={() => setShowAddModal(false)}
-                    className="btn-secondary flex-1"
+                    className="btn-secondary flex-1 h-14"
                   >
-                    Cancel
+                    Discard
                   </button>
-                  <button type="submit" className="btn-primary flex-1">
-                    Add Transaction
+                  <button type="submit" className="btn-primary flex-1 h-14">
+                    Track Expense
                   </button>
                 </div>
               </form>
