@@ -39,30 +39,25 @@ const Dashboard = () => {
   const stats = calculateNetSpend(personalExpenses, groupExpenses, user?.uid || 'user1');
 
   const chartData = [
-    { name: 'Personal', value: stats.personal, color: '#a3b3ff' },
-    { name: 'Groups', value: stats.groupShare, color: '#c2efd0' },
+    { name: 'Personal', value: stats.personal, color: '#1a73e8' },
+    { name: 'Groups', value: stats.groupShare, color: '#188038' },
   ];
 
   return (
-    <div className="flex min-h-screen bg-background text-zinc-100 selection:bg-primary/20">
+    <div className="flex min-h-screen bg-surface font-sans">
       <Sidebar />
-      <main className="ml-64 flex-1 p-12 max-w-7xl mx-auto w-full">
-        <header className="mb-14 flex items-center justify-between">
+      <main className="ml-64 flex-1 p-10 max-w-6xl mx-auto w-full">
+        <header className="mb-10 flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-[0.2em] mb-3">
-              <Zap size={14} />
-              Live Insights
-            </div>
-            <h1 className="text-4xl font-extrabold tracking-tight">Overview</h1>
+            <h1 className="text-3xl font-medium text-zinc-900 tracking-tight">Overview</h1>
+            <p className="text-zinc-500 mt-1">Your financial summary</p>
           </div>
-          <div className="flex gap-4">
-            <button className="btn-secondary group">
-              <span className="flex items-center gap-2">
-                <Plus size={18} className="text-zinc-500 group-hover:text-white transition-colors" />
-                Personal
-              </span>
+          <div className="flex gap-3">
+            <button className="btn-secondary flex items-center gap-2">
+              <Plus size={18} />
+              Personal
             </button>
-            <button className="btn-primary flex items-center gap-2 px-8">
+            <button className="btn-primary flex items-center gap-2">
               <Plus size={18} />
               New Shared
             </button>
@@ -70,59 +65,59 @@ const Dashboard = () => {
         </header>
 
         {/* Hero Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="lg:col-span-8 glass-card border-white/[0.03] relative overflow-hidden flex flex-col justify-between"
+            className="lg:col-span-8 glass-card border-transparent relative overflow-hidden flex flex-col justify-between"
           >
             <div className="relative z-10 w-full">
-              <div className="flex justify-between items-start mb-10 text-zinc-400">
-                <span className="font-semibold text-sm">True Net Outflow</span>
-                <span className="p-2 rounded-full bg-white/5"><ShieldCheck size={20} className="text-primary" /></span>
+              <div className="flex justify-between items-start mb-6 text-zinc-600">
+                <span className="font-medium text-sm">True Net Outflow</span>
+                <span className="p-2 rounded-full bg-zinc-100 text-zinc-500"><ShieldCheck size={20} /></span>
               </div>
               
-              <div className="mb-12">
-                <h2 className="text-7xl font-black tracking-tighter text-white mb-2">
+              <div className="mb-10">
+                <h2 className="text-5xl font-normal tracking-tight text-zinc-900 mb-2">
                   {formatCurrency(stats.netSpend)}
                 </h2>
-                <div className="flex items-center gap-2 text-zinc-500 font-medium">
-                  <span className="text-secondary flex items-center gap-0.5">
-                    <ArrowDownRight size={16} /> 12%
+                <div className="flex items-center gap-2 text-sm text-zinc-500">
+                  <span className="text-secondary flex items-center gap-1 font-medium bg-secondary-container px-2 py-0.5 rounded-sm">
+                    <ArrowDownRight size={14} /> 12%
                   </span>
-                  than last month
+                  vs last month
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/[0.05]">
+              <div className="grid grid-cols-3 gap-6 pt-6 border-t border-zinc-200">
                 <div>
-                  <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-2">Gross Paid</p>
-                  <p className="text-xl font-bold">{formatCurrency(stats.grossPaid)}</p>
+                  <p className="text-xs text-zinc-500 font-medium mb-1">Gross Paid</p>
+                  <p className="text-xl font-medium text-zinc-900">{formatCurrency(stats.grossPaid)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-secondary/60 uppercase tracking-widest font-bold mb-2">To Receive</p>
-                  <p className="text-xl font-bold text-secondary">{formatCurrency(stats.owedToMe)}</p>
+                  <p className="text-xs text-zinc-500 font-medium mb-1">To Receive</p>
+                  <p className="text-xl font-medium text-secondary">{formatCurrency(stats.owedToMe)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-accent/60 uppercase tracking-widest font-bold mb-2">You Owe</p>
-                  <p className="text-xl font-bold text-accent">{formatCurrency(stats.iOweOthers)}</p>
+                  <p className="text-xs text-zinc-500 font-medium mb-1">You Owe</p>
+                  <p className="text-xl font-medium text-accent">{formatCurrency(stats.iOweOthers)}</p>
                 </div>
               </div>
             </div>
           </motion.div>
 
           {/* Snitch/Insight Section */}
-          <div className="lg:col-span-4 flex flex-col gap-8">
+          <div className="lg:col-span-4 flex flex-col gap-6">
             <div className="metric-card h-full flex flex-col items-center justify-center text-center">
-              <p className="text-zinc-500 font-bold text-xs uppercase tracking-widest mb-6">Split Analysis</p>
-              <div className="w-full h-40">
+              <p className="text-zinc-600 font-medium text-sm mb-4">Split Analysis</p>
+              <div className="w-full h-32">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={chartData}
-                      innerRadius={55}
-                      outerRadius={75}
-                      paddingAngle={10}
+                      innerRadius={45}
+                      outerRadius={60}
+                      paddingAngle={5}
                       dataKey="value"
                       stroke="none"
                     >
@@ -131,35 +126,40 @@ const Dashboard = () => {
                       ))}
                     </Pie>
                     <Tooltip 
-                      contentStyle={{ backgroundColor: '#121214', border: 'none', borderRadius: '16px', boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)' }}
-                      itemStyle={{ color: '#fff', fontSize: '12px' }}
+                      contentStyle={{ backgroundColor: '#fff', border: '1px solid #e8eaed', borderRadius: '4px', boxShadow: '0 1px 3px 0 rgba(60,64,67,.3)' }}
+                      itemStyle={{ color: '#202124', fontSize: '13px' }}
                     />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="space-y-2 mt-6">
-                <div className="flex items-center gap-3 text-sm font-semibold">
-                   <div className="w-2 h-2 rounded-full bg-primary" />
-                   <span>Personal (72%)</span>
+              <div className="space-y-1.5 mt-4 w-full px-4">
+                <div className="flex items-center justify-between text-sm text-zinc-600">
+                   <div className="flex items-center gap-2">
+                     <div className="w-2 h-2 rounded-full bg-primary" />
+                     <span>Personal</span>
+                   </div>
+                   <span className="font-medium text-zinc-900">72%</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm font-semibold">
-                   <div className="w-2 h-2 rounded-full bg-secondary" />
-                   <span>Groups (28%)</span>
+                <div className="flex items-center justify-between text-sm text-zinc-600">
+                   <div className="flex items-center gap-2">
+                     <div className="w-2 h-2 rounded-full bg-secondary" />
+                     <span>Groups</span>
+                   </div>
+                   <span className="font-medium text-zinc-900">28%</span>
                 </div>
               </div>
             </div>
             
             {/* UI Snitch Pattern (Contextual Tip) */}
             <motion.div 
-               whileHover={{ x: 5 }}
-               className="bg-primary/10 border border-primary/20 rounded-3xl p-6 flex gap-4"
+               className="bg-primary-container/50 border border-primary/20 rounded-lg p-5 flex gap-4"
             >
-              <div className="p-2 h-fit bg-primary/20 rounded-xl text-primary">
+              <div className="text-primary mt-0.5">
                 <Info size={18} />
               </div>
               <div>
-                <p className="font-bold text-sm mb-1">Financial Snitch</p>
-                <p className="text-xs text-zinc-400 leading-relaxed">
+                <p className="font-medium text-sm text-zinc-900 mb-1">Financial insight</p>
+                <p className="text-sm text-zinc-600 leading-relaxed">
                   You are owed <strong>{formatCurrency(stats.owedToMe)}</strong>. Settling up now would reduce your net outflow by 30%.
                 </p>
               </div>
@@ -168,22 +168,22 @@ const Dashboard = () => {
         </div>
 
         {/* Action Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <SmallStatCard 
             title="Avg. Daily" 
             value={formatCurrency(stats.netSpend / 30)} 
             icon={TrendingDown}
-            color="text-accent"
+            color="text-secondary"
           />
           <SmallStatCard 
             title="Projected" 
             value={formatCurrency(stats.netSpend * 1.1)} 
             icon={TrendingUp}
-            color="text-secondary"
+            color="text-accent"
           />
           <SmallStatCard 
-            title="Groups" 
-            value="4 Active" 
+            title="Active Groups" 
+            value="4 Teams" 
             icon={ArrowUpRight}
             color="text-primary"
           />
@@ -195,14 +195,13 @@ const Dashboard = () => {
 
 const SmallStatCard = ({ title, value, icon: Icon, color }) => (
   <motion.div 
-    whileHover={{ y: -5 }}
-    className="metric-card flex flex-col justify-between h-32"
+    className="metric-card flex flex-col justify-between h-28"
   >
     <div className="flex justify-between items-start">
-      <p className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest">{title}</p>
-      <Icon size={16} className={color} />
+      <p className="text-zinc-600 font-medium text-sm">{title}</p>
+      <Icon size={18} className={color} />
     </div>
-    <p className="text-2xl font-black">{value}</p>
+    <p className="text-2xl font-medium text-zinc-900">{value}</p>
   </motion.div>
 );
 
