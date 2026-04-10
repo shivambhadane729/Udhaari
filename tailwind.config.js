@@ -4,40 +4,50 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        background: '#0a0a0b',
-        surface: '#121214',
-        'surface-container': '#1e1e21',
-        'surface-bright': '#2a2a2d',
+        background: '#ffffff',
+        surface: '#f8f9fa',
+        'surface-container': '#ffffff',
+        'surface-bright': '#f1f3f4',
         primary: {
-          DEFAULT: '#a3b3ff', // Material 3 inspired Blue/Indigo
-          dark: '#3f51b5',
-          container: '#1a237e',
+          DEFAULT: '#1a73e8', // Classic Google Blue
+          dark: '#174ea6',
+          container: '#e8f0fe',
         },
         secondary: {
-          DEFAULT: '#c2efd0', // Soft Green
-          dark: '#4caf50',
-          container: '#1b5e20',
+          DEFAULT: '#188038', // Minimalist Green
+          dark: '#0d652d',
+          container: '#ceead6',
         },
         accent: {
-          DEFAULT: '#ffb4ab', // M3 Soft Red/Coral
-          dark: '#ba1a1a',
+          DEFAULT: '#d93025', // Minimalist Red
+          dark: '#a50e0e',
         },
+        zinc: {
+           100: '#202124', // Use for main text
+           200: '#3c4043',
+           300: '#5f6368',
+           400: '#80868b',
+           500: '#9aa0a6',
+           600: '#bdc1c6',
+           700: '#dadce0',
+           800: '#e8eaed',
+           900: '#f1f3f4',
+        }
       },
       borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
-        '3xl': '2rem',
+        'xl': '0.5rem',
+        '2xl': '0.75rem',
+        '3xl': '1rem',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'glow-primary': '0 0 20px rgba(163, 179, 255, 0.15)',
-        'glow-secondary': '0 0 20px rgba(194, 239, 208, 0.15)',
+        'minimal': '0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15)',
+        'minimal-hover': '0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15)',
       }
     },
   },
