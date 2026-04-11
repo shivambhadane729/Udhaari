@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { formatCurrency } from '../utils/engine';
 import { useAuth } from '../contexts/AuthContext';
-import { useEcosystem } from '../hooks/useEcosystem';
+import { useEcosystem } from '../contexts/EcosystemContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 
