@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Expenses from './pages/Expenses';
 import Groups from './pages/Groups';
 
+import { EcosystemProvider } from './contexts/EcosystemContext';
+
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
   return user ? children : <Navigate to="/login" />;
@@ -15,36 +17,38 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/dashboard" 
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            } 
-          />
-          <Route 
-            path="/expenses" 
-            element={
-              <PrivateRoute>
-                <Expenses />
-              </PrivateRoute>
-            } 
-          />
-          <Route 
-            path="/groups" 
-            element={
-              <PrivateRoute>
-                <Groups />
-              </PrivateRoute>
-            } 
-          />
-        </Routes>
-      </Router>
+      <EcosystemProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route 
+              path="/dashboard" 
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/expenses" 
+              element={
+                <PrivateRoute>
+                  <Expenses />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/groups" 
+              element={
+                <PrivateRoute>
+                  <Groups />
+                </PrivateRoute>
+              } 
+            />
+          </Routes>
+        </Router>
+      </EcosystemProvider>
     </AuthProvider>
   );
 }
