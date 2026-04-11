@@ -50,3 +50,14 @@ export const formatCurrency = (amount) => {
     maximumFractionDigits: 0,
   }).format(amount);
 };
+
+export const generateCSV = (data) => {
+  if (!data || data.length === 0) return '';
+  const headers = Object.keys(data[0]).join(',');
+  const rows = data.map(row => 
+    Object.values(row)
+      .map(val => (typeof val === 'string' ? `"${val}"` : val))
+      .join(',')
+  );
+  return [headers, ...rows].join('\n');
+};

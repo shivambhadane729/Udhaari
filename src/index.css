@@ -1,36 +1,77 @@
 @import "tailwindcss";
+
+@theme {
+  --font-headline: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-container: #f1f5f9;
+  --color-surface-container-low: #f8fafc;
+  
+  --color-primary: #0f172a;
+  --color-primary-dark: #1e293b;
+  --color-primary-container: #f1f5f9;
+  
+  --color-secondary: #2563eb;
+  --color-secondary-dark: #1d4ed8;
+  
+  --color-accent: #e11d48;
+
+  --shadow-minimal: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-minimal-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
 :root {
   color-scheme: light;
 }
 
 body {
-  @apply bg-background text-zinc-100 font-sans antialiased;
+  @apply bg-background text-primary font-body antialiased;
 }
 
 @layer components {
   .btn {
-    @apply px-6 py-2.5 rounded-[4px] font-medium transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none text-sm tracking-wide;
+    @apply px-7 py-3 rounded-xl font-headline font-bold transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none text-xs uppercase tracking-widest;
   }
 
   .btn-primary {
-    @apply btn bg-primary text-white hover:bg-primary-dark shadow-minimal hover:shadow-minimal-hover border border-transparent;
+    @apply px-7 py-3 rounded-xl font-headline font-bold transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none text-xs uppercase tracking-[0.2em] bg-secondary text-white hover:bg-secondary-dark shadow-lg shadow-secondary/20;
   }
 
   .btn-secondary {
-    @apply btn bg-transparent border border-zinc-700 text-primary hover:bg-primary-container;
+    @apply px-7 py-3 rounded-xl font-headline font-bold transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none text-xs uppercase tracking-[0.2em] bg-white border border-secondary/30 text-secondary hover:bg-secondary/5;
   }
 
   .input {
-    @apply w-full bg-white border border-zinc-700 rounded-[4px] px-3 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-zinc-100 placeholder:text-zinc-400 text-sm;
+    @apply w-full bg-surface-container border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/20 transition-all text-primary placeholder:text-slate-400 text-sm;
   }
 
   .glass-card {
-    @apply bg-white border border-zinc-800 rounded-lg p-6 shadow-minimal;
+    @apply bg-white border border-slate-100 rounded-3xl p-10 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-slate-200;
   }
   
   .metric-card {
-    @apply bg-surface border border-zinc-800 rounded-lg p-6 transition-all duration-200 hover:shadow-minimal;
+    @apply bg-surface-container rounded-3xl p-10 transition-all duration-300 hover:bg-surface border border-slate-100;
   }
+
+  .text-monolith {
+    @apply font-headline font-extrabold tracking-tighter leading-tight text-primary;
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    @apply bg-white/70 border-white/50;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
 
 /* Custom Scrollbar */
@@ -43,7 +84,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-zinc-600/50 rounded-full hover:bg-zinc-500 transition-colors;
+  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
 }
 
 .animate-pulse-slow {

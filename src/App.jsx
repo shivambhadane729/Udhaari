@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Expenses from './pages/Expenses';
@@ -16,9 +17,10 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route 
-            path="/" 
+            path="/dashboard" 
             element={
               <PrivateRoute>
                 <Dashboard />

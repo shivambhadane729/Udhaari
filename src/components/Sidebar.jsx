@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, ReceiptText, Users, LogOut, Wallet } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -13,58 +12,54 @@ const Sidebar = () => {
   const { logout, user } = useAuth();
 
   const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-    { icon: ReceiptText, label: 'Expenses', path: '/expenses' },
-    { icon: Users, label: 'Groups', path: '/groups' },
+    { icon: 'grid_view', label: 'Ecosystem', path: '/dashboard' },
+    { icon: 'finance', label: 'Transactions', path: '/expenses' },
+    { icon: 'groups_3', label: 'Monoliths', path: '/groups' },
   ];
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-zinc-200 flex flex-col p-6 z-50">
-      <div className="flex items-center gap-3 px-2 mb-10 group cursor-default">
-        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-200">
-          <Wallet className="text-primary" size={24} />
+    <aside className="fixed left-0 top-0 h-screen w-72 bg-surface text-primary border-r border-slate-200 flex flex-col p-8 z-50">
+      <div className="flex items-center gap-4 px-2 mb-20 group cursor-default">
+        <div className="w-10 h-10 bg-primary text-white rounded-none flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+          <span className="material-symbols-outlined text-2xl font-bold">account_balance_wallet</span>
         </div>
         <div>
-          <span className="text-xl font-bold tracking-tight text-zinc-900 block">Udhaari</span>
+          <span className="text-xl font-extrabold tracking-tighter block font-headline uppercase">UDHAARI / OBSIDIAN</span>
         </div>
       </div>
 
-      <nav className="flex-1 space-y-1">
+      <nav className="flex-1 space-y-3">
         {navItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
               cn(
-                "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group font-medium",
+                "flex items-center gap-5 px-6 py-5 rounded-none transition-all duration-300 group font-headline text-xs uppercase tracking-[0.2em]",
                 isActive 
-                  ? "bg-primary/10 text-primary" 
-                  : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
+                  ? "bg-secondary text-white shadow-2xl shadow-secondary/20" 
+                  : "text-slate-500 hover:text-secondary hover:bg-secondary/5"
               )
             }
           >
-            {({ isActive }) => (
-              <>
-                <item.icon size={20} className={cn("transition-transform duration-200", isActive && "scale-105")} />
-                <span>{item.label}</span>
-              </>
-            )}
+            <span className="material-symbols-outlined text-2xl">{item.icon}</span>
+            <span className="font-bold">{item.label}</span>
           </NavLink>
         ))}
       </nav>
 
-      <div className="mt-auto pt-6 border-t border-zinc-200 space-y-4">
-        <div className="px-4 py-3 rounded-lg bg-surface flex flex-col">
-          <span className="text-xs font-semibold text-zinc-500 mb-0.5">Signed in as</span>
-          <span className="text-sm font-medium truncate text-zinc-900">{user?.email || 'User'}</span>
+      <div className="mt-auto pt-10 border-t border-slate-200 space-y-8">
+        <div className="px-6 py-5 bg-slate-100 flex flex-col gap-2">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">AUTHORIZED OPERATOR</span>
+          <span className="text-xs font-bold truncate tracking-tight uppercase">{user?.email?.split('@')[0] || 'ENTITY'}</span>
         </div>
         
         <button
           onClick={logout}
-          className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-accent font-medium transition-all duration-200 group"
+          className="flex items-center gap-5 px-6 py-5 w-full text-slate-500 hover:text-accent hover:bg-accent/5 transition-all duration-300 font-headline text-xs font-bold uppercase tracking-[0.2em]"
         >
-          <LogOut size={20} />
-          <span>Sign Out</span>
+          <span className="material-symbols-outlined text-2xl">logout</span>
+          <span>Terminate</span>
         </button>
       </div>
     </aside>
