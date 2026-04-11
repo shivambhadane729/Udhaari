@@ -20,7 +20,7 @@ const Sidebar = () => {
   return (
     <aside className="fixed left-0 top-0 h-screen w-72 bg-surface text-primary border-r border-slate-200 flex flex-col p-8 z-50">
       <div className="flex items-center gap-4 px-2 mb-20 group cursor-default">
-        <div className="w-10 h-10 bg-primary text-white rounded-none flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+        <div className="w-10 h-10 bg-primary text-white rounded-none flex items-center justify-center transition-all duration-300 group-hover:scale-110">
           <span className="material-symbols-outlined text-2xl font-bold">account_balance_wallet</span>
         </div>
         <div>

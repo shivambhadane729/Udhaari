@@ -74,7 +74,7 @@ const Dashboard = () => {
             
             {/* Total Liquidity */}
             <div className="glass-card relative overflow-hidden group border-slate-100">
-               <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] -mr-48 -mt-48 transition-transform duration-1000 group-hover:scale-125" />
+               <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] -mr-48 -mt-48 transition-transform duration-500 group-hover:scale-125" />
                <div className="relative z-10">
                   <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-10 block">AGGREGATE LIQUIDITY / GLOBAL</span>
                   <h2 className="text-monolith text-8xl tracking-tighter mb-8">
@@ -85,7 +85,7 @@ const Dashboard = () => {
                         <motion.div 
                           initial={{ width: 0 }}
                           animate={{ width: '65%' }}
-                          className="h-full bg-white transition-all duration-1000"
+                          className="h-full bg-white transition-all duration-500"
                         />
                      </div>
                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Reserve</span>
@@ -156,7 +156,7 @@ const Dashboard = () => {
                       VIEW REPORT
                    </button>
                 </div>
-                <span className="material-symbols-outlined absolute -bottom-10 -right-10 text-white/10 text-[15rem] group-hover:scale-110 transition-transform duration-1000">security</span>
+                <span className="material-symbols-outlined absolute -bottom-10 -right-10 text-white/10 text-[15rem] group-hover:scale-110 transition-transform duration-500">security</span>
              </div>
 
              <div className="metric-card p-10 bg-slate-50 border-slate-100 text-[10px] font-bold tracking-[0.3em] uppercase text-slate-500 space-y-6">

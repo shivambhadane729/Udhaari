@@ -230,7 +230,7 @@ const Landing = () => {
         {/* Feature Grid (Asymmetric) */}
         <section className="mt-40 grid md:grid-cols-12 gap-8" id="features">
           <div className="md:col-span-8 group cursor-pointer">
-            <div className="metric-card h-full p-16 hover:bg-slate-50 transition-all duration-700 shadow-sm">
+            <div className="metric-card h-full p-16 hover:bg-slate-50 transition-all duration-300 shadow-sm">
                <span className="material-symbols-outlined text-secondary text-5xl mb-12">architecture</span>
                <h3 className="text-monolith text-4xl mb-6 text-primary">Group Monoliths</h3>
                <p className="text-slate-500 text-lg max-w-md leading-relaxed font-medium">
@@ -270,7 +270,7 @@ const Landing = () => {
           </div>
           <div className="md:col-span-8">
             <div className="metric-card h-full p-16 bg-slate-50 text-primary border-slate-100 group overflow-hidden relative rounded-3xl shadow-sm">
-               <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 rounded-full blur-[80px] -mr-32 -mt-32 transition-all duration-700 group-hover:scale-150" />
+               <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 rounded-full blur-[80px] -mr-32 -mt-32 transition-all duration-300 group-hover:scale-150" />
                <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                   <div>
                     <span className="material-symbols-outlined text-secondary text-5xl mb-12">hub</span>
