@@ -96,29 +96,29 @@ const Landing = () => {
             className="lg:col-span-7 flex flex-col pt-12"
           >
             <motion.span variants={itemVariants} className="inline-block text-secondary tracking-[0.3em] text-[10px] font-bold mb-8 uppercase">
-              Financial Precision
+              Simple Expense Management
             </motion.span>
             
             <motion.h1 variants={itemVariants} className="text-monolith text-6xl md:text-8xl mb-10 text-primary">
-              Modular split <br/>
-              <span className="text-secondary">for modern life.</span>
+              Split expenses, <br/>
+              <span className="text-secondary">not friendships.</span>
             </motion.h1>
             
             <motion.p variants={itemVariants} className="text-[#8B9290] text-xl max-w-xl leading-relaxed mb-12">
-              We distill complexity into clarity. Udhaari organizes your shared expenses as modular pillars, supporting your financial architecture with precision.
+              Keep track of personal expenses and split bills with friends seamlessly. No complicated math, just clear balances.
             </motion.p>
             
             {/* Signature Reveal Section */}
             <motion.div variants={itemVariants} className="grid sm:grid-cols-2 gap-10 mt-12 bg-slate-50 p-10 border border-slate-100 rounded-3xl">
               <div className="space-y-4">
                 <span className="text-secondary font-headline text-2xl font-bold">01</span>
-                <h4 className="font-bold text-lg text-primary">Intentional Sync</h4>
-                <p className="text-xs text-slate-500 leading-relaxed font-medium">Cross-device verification ensuring every settlement is mathematically perfect and instant.</p>
+                <h4 className="font-bold text-lg text-primary">Easy Sharing</h4>
+                <p className="text-xs text-slate-500 leading-relaxed font-medium">Create groups with friends to track house rent, trips, and dinners in real time.</p>
               </div>
               <div className="space-y-4">
                 <span className="text-secondary font-headline text-2xl font-bold">02</span>
-                <h4 className="font-bold text-lg text-primary">Silent Authority</h4>
-                <p className="text-xs text-slate-500 leading-relaxed font-medium">No clutter. No friction. Just the pure architecture of your spending, visualized in real-time.</p>
+                <h4 className="font-bold text-lg text-primary">Zero Friction</h4>
+                <p className="text-xs text-slate-500 leading-relaxed font-medium">A clean, ad-free interface designed to show you exactly how much you owe or are owed.</p>
               </div>
             </motion.div>
           </motion.div>
@@ -133,10 +133,10 @@ const Landing = () => {
             >
               <div className="mb-12 text-center lg:text-left">
                 <h2 className="text-3xl text-monolith mb-2 text-primary">
-                  {isLogin ? 'AUTHENTICATE' : 'ESTABLISH'}
+                  {isLogin ? 'SIGN IN' : 'SIGN UP'}
                 </h2>
                 <p className="text-slate-500 text-sm tracking-tight capitalize font-bold uppercase">
-                  {isLogin ? 'Enter credentials to access ecosystem' : 'Begin your financial architecture'}
+                  {isLogin ? 'Enter your credentials to access your dashboard' : 'Create your free account to get started'}
                 </p>
               </div>
 
@@ -149,19 +149,19 @@ const Landing = () => {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-[10px] uppercase font-bold tracking-widest text-[#8B9290] mb-2 font-headline">IDENTITY / EMAIL</label>
+                  <label className="block text-[10px] uppercase font-bold tracking-widest text-[#8B9290] mb-2 font-headline">EMAIL ADDRESS</label>
                   <input
                     type="email"
                     required
                     className="input"
-                    placeholder="entity@udhaari.tech"
+                    placeholder="your.name@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase font-bold tracking-widest text-[#8B9290] mb-2 font-headline">SECURE TOKEN / PASSWORD</label>
+                  <label className="block text-[10px] uppercase font-bold tracking-widest text-[#8B9290] mb-2 font-headline">PASSWORD</label>
                   <input
                     type="password"
                     required
@@ -182,7 +182,7 @@ const Landing = () => {
                       <Loader2 className="animate-spin" size={18} />
                     ) : (
                       <>
-                        {isLogin ? 'Log In' : 'Create Identity'}
+                        {isLogin ? 'Sign In' : 'Sign Up'}
                         <span className="material-symbols-outlined text-lg">arrow_right_alt</span>
                       </>
                     )}
@@ -194,7 +194,7 @@ const Landing = () => {
                     <div className="w-full border-t border-slate-100"></div>
                   </div>
                   <div className="relative flex justify-center text-[10px]">
-                    <span className="px-4 bg-white text-[#8B9290] font-bold tracking-widest">ECOSYSTEM ACCESS</span>
+                    <span className="px-4 bg-white text-[#8B9290] font-bold tracking-widest">OR CONNECT WITH</span>
                   </div>
                 </div>
 
@@ -210,17 +210,17 @@ const Landing = () => {
                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.15C1.43 8.55 1 10.22 1 12s.43 3.45 1.15 4.93l3.69-2.84z" fill="#FBBC05"/>
                     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.15 7.07l3.69 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                   </svg>
-                  Sign In with Google
+                  Continue with Google
                 </button>
               </form>
 
               <div className="mt-12 pt-8 border-t border-slate-50 text-center text-[10px] tracking-widest font-bold text-[#8B9290]">
-                {isLogin ? "NEW TO THE ECOSYSTEM? " : "ALREADY ESTABLISHED? "}
+                {isLogin ? "DON'T HAVE AN ACCOUNT? " : "ALREADY HAVE AN ACCOUNT? "}
                 <button
                   onClick={() => setIsLogin(!isLogin)}
                   className="text-primary hover:text-primary-dark transition-colors"
                 >
-                  {isLogin ? "INITIALIZE NOW" : "AUTHENTICATE"}
+                  {isLogin ? "SIGN UP" : "SIGN IN"}
                 </button>
               </div>
             </motion.div>
@@ -232,9 +232,9 @@ const Landing = () => {
           <div className="md:col-span-8 group cursor-pointer">
             <div className="metric-card h-full p-16 hover:bg-slate-50 transition-all duration-300 shadow-sm">
                <span className="material-symbols-outlined text-secondary text-5xl mb-12">architecture</span>
-               <h3 className="text-monolith text-4xl mb-6 text-primary">Group Monoliths</h3>
+               <h3 className="text-monolith text-4xl mb-6 text-primary">Shared Groups</h3>
                <p className="text-slate-500 text-lg max-w-md leading-relaxed font-medium">
-                  Defining the core DNA of your group expenses. We navigate the intersection of shared costs and creative life to manage every split with silent authority.
+                  Create shared groups for trips, roommates, or projects. Keep track of who paid for what and settle up easily without awkward conversations.
                </p>
             </div>
           </div>
@@ -242,27 +242,27 @@ const Landing = () => {
             <div className="metric-card h-full p-12 flex flex-col justify-between bg-primary text-white hover:bg-primary-dark border-none rounded-3xl shadow-xl">
                <div>
                   <span className="material-symbols-outlined text-5xl mb-10 text-secondary">insights</span>
-                  <h3 className="text-monolith text-3xl mb-4 text-white">Precision Analytics</h3>
+                  <h3 className="text-monolith text-3xl mb-4 text-white">Smart Insights</h3>
                   <p className="opacity-80 leading-relaxed font-medium font-headline uppercase text-[10px] tracking-widest">
-                    Every transaction is distilled into pure insights. Visualize your spending patterns through a minimalist lens.
+                     Every transaction is categorized automatically. Visualize your spending patterns through clean, interactive charts.
                   </p>
                </div>
                <div className="mt-12 flex items-center font-bold tracking-[0.3em] text-[10px] uppercase">
-                  Discover System <span className="material-symbols-outlined ml-2 text-sm">trending_flat</span>
+                  Explore Features <span className="material-symbols-outlined ml-2 text-sm">trending_flat</span>
                </div>
             </div>
           </div>
           <div className="md:col-span-4">
             <div className="metric-card h-full p-12 border-slate-100 rounded-3xl shadow-sm">
-               <span className="material-symbol-outlined text-secondary text-4xl mb-10">lock</span>
-               <h3 className="text-monolith text-2xl mb-4 text-primary uppercase tracking-widest">Encrypted Trust</h3>
+               <span className="material-symbols-outlined text-secondary text-4xl mb-10">lock</span>
+               <h3 className="text-monolith text-2xl mb-4 text-primary uppercase tracking-widest">Secure Data</h3>
                <p className="text-slate-500 text-xs leading-relaxed mb-8 uppercase font-bold tracking-tight">
-                  User data that feels like a curated gallery walk. Intuitive, frictionless, and deeply respectful of your privacy.
+                  Your privacy is our priority. We secure all account data safely and never share your sensitive personal information.
                </p>
                <div className="space-y-4 pt-4">
                   <div className="h-[1px] bg-slate-100 w-full" />
                   <div className="flex justify-between items-center text-[10px] font-bold tracking-widest text-slate-400">
-                     <span>ENCRYPTION</span>
+                     <span>SECURITY</span>
                      <span className="text-primary">AES-256</span>
                   </div>
                </div>
@@ -273,12 +273,12 @@ const Landing = () => {
                <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 rounded-full blur-[80px] -mr-32 -mt-32 transition-all duration-300 group-hover:scale-150" />
                <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                   <div>
-                    <span className="material-symbols-outlined text-secondary text-5xl mb-12">hub</span>
-                    <h3 className="text-monolith text-5xl mb-6 leading-tight uppercase">Universal Settlement</h3>
-                    <p className="text-slate-500 text-lg leading-relaxed mb-10 font-bold uppercase tracking-tight">The ultimate feature. Any debt, any currency, liquidated through our modular settling engine.</p>
-                    <button className="border border-secondary/20 px-10 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary hover:text-white transition-all rounded-xl">
-                       Learn Protocol
-                    </button>
+                     <span className="material-symbols-outlined text-secondary text-5xl mb-12">hub</span>
+                     <h3 className="text-monolith text-5xl mb-6 leading-tight uppercase">Easy Settlements</h3>
+                     <p className="text-slate-500 text-lg leading-relaxed mb-10 font-bold uppercase tracking-tight">Calculate the exact breakdown of who owes what and settle up debts with direct payment options.</p>
+                     <button className="border border-secondary/20 px-10 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-secondary hover:text-white transition-all rounded-xl">
+                        Learn More
+                     </button>
                   </div>
                   <div className="relative opacity-20 group-hover:opacity-40 transition-opacity">
                      <span className="material-symbols-outlined text-secondary text-[12rem] float-right">deployed_code</span>
@@ -291,8 +291,8 @@ const Landing = () => {
       
       {/* Footer */}
       <footer className="border-t border-slate-100 py-20 px-8 text-center bg-white text-on-surface">
-         <div className="text-monolith text-xl tracking-tighter mb-8 bg-zinc-400">UDHAARI / MONOLITH</div>
-         <p className="text-[#8B9290] text-xs font-bold tracking-widest uppercase mb-12">© 2024 Silent Authority Ecosystem. All rights reserved.</p>
+         <div className="text-monolith text-xl tracking-tighter mb-8 text-primary">UDHAARI FINANCE</div>
+         <p className="text-[#8B9290] text-xs font-bold tracking-widest uppercase mb-12">© 2024 Udhaari Finance. All rights reserved.</p>
          <div className="flex justify-center gap-12 text-[#8B9290]">
             <span className="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">public</span>
             <span className="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">fingerprint</span>

@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, isDemoMode } = useAuth();
   const { accounts, transactions, loading, addTransaction, updateAccountBalance } = useEcosystem();
   
   const [isAdding, setIsAdding] = useState(false);
@@ -53,8 +53,8 @@ const Dashboard = () => {
         {/* Monolithic Header */}
         <header className="mb-20 flex items-end justify-between border-b border-slate-200 pb-10">
           <div>
-            <span className="text-secondary tracking-[0.4em] text-[10px] font-bold mb-4 uppercase inline-block">Ecosystem / Live Status</span>
-            <h1 className="text-monolith text-6xl uppercase tracking-tighter">OBSIDIAN HUB</h1>
+            <span className="text-secondary tracking-[0.4em] text-[10px] font-bold mb-4 uppercase inline-block">Overview / Live Status</span>
+            <h1 className="text-monolith text-6xl uppercase tracking-tighter">DASHBOARD</h1>
           </div>
           <div className="flex gap-4">
             <button 
@@ -62,7 +62,7 @@ const Dashboard = () => {
               className="btn-primary h-14 flex items-center gap-3"
             >
                <span className="material-symbols-outlined text-base">add</span>
-               ENTRY
+               ADD EXPENSE
             </button>
           </div>
         </header>
@@ -76,7 +76,7 @@ const Dashboard = () => {
             <div className="glass-card relative overflow-hidden group border-slate-100">
                <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] -mr-48 -mt-48 transition-transform duration-500 group-hover:scale-125" />
                <div className="relative z-10">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-10 block">AGGREGATE LIQUIDITY / GLOBAL</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-10 block">TOTAL BALANCE</span>
                   <h2 className="text-monolith text-8xl tracking-tighter mb-8">
                      {formatCurrency(totalBalance)}
                   </h2>
@@ -88,7 +88,7 @@ const Dashboard = () => {
                           className="h-full bg-white transition-all duration-500"
                         />
                      </div>
-                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Reserve</span>
+                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Available Funds</span>
                   </div>
                </div>
             </div>
@@ -115,7 +115,7 @@ const Dashboard = () => {
             {/* Activity Stream */}
             <div className="glass-card !p-0 border-slate-100 overflow-hidden shadow-sm">
                <div className="px-10 py-6 bg-slate-50 flex justify-between items-center text-[10px] font-bold tracking-widest uppercase text-slate-500">
-                  <span>LEDGER STREAM</span>
+                  <span>RECENT TRANSACTIONS</span>
                   <span className="text-secondary">SYNCED</span>
                </div>
                <div className="divide-y divide-slate-100">
@@ -137,7 +137,7 @@ const Dashboard = () => {
                   ))}
                   {transactions.length === 0 && (
                      <div className="p-20 text-center text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                        NO TRANSACTION DATA DETECTED
+                        NO TRANSACTIONS RECORDED
                      </div>
                   )}
                </div>
@@ -146,23 +146,29 @@ const Dashboard = () => {
 
           {/* Quick Insights */}
           <aside className="col-span-12 lg:col-span-4 space-y-12">
-             <div className="metric-card bg-secondary text-white border-none group relative overflow-hidden shadow-lg shadow-secondary/10">
+             <div className={`metric-card border-none group relative overflow-hidden shadow-lg ${isDemoMode ? "bg-amber-600 text-white shadow-amber-600/10" : "bg-secondary text-white shadow-secondary/10"}`}>
                 <div className="relative z-10">
-                   <h4 className="text-monolith text-xl uppercase tracking-widest mb-4 text-white">PROTOCOL ALERT</h4>
+                   <h4 className="text-monolith text-xl uppercase tracking-widest mb-4 text-white">
+                     {isDemoMode ? "DEMO MODE" : "PROTOCOL ALERT"}
+                   </h4>
                    <p className="text-xs opacity-80 leading-relaxed mb-10 font-bold uppercase tracking-tight">
-                      System health at 98%. Aggregate accounts successfully mapped to Firebase core.
+                      {isDemoMode 
+                        ? "Running via local storage. Configure VITE_FIREBASE_* environment variables to activate full cloud syncing."
+                        : "System health at 98%. Aggregate accounts successfully mapped to Firebase core."}
                    </p>
                    <button className="text-[10px] font-bold uppercase tracking-[0.2em] bg-white text-secondary px-8 py-4 hover:bg-slate-100 transition-all shadow-xl">
-                      VIEW REPORT
+                      {isDemoMode ? "SETUP GUIDE" : "VIEW REPORT"}
                    </button>
                 </div>
-                <span className="material-symbols-outlined absolute -bottom-10 -right-10 text-white/10 text-[15rem] group-hover:scale-110 transition-transform duration-500">security</span>
+                <span className="material-symbols-outlined absolute -bottom-10 -right-10 text-white/10 text-[15rem] group-hover:scale-110 transition-transform duration-500">
+                  {isDemoMode ? "construction" : "security"}
+                </span>
              </div>
 
              <div className="metric-card p-10 bg-slate-50 border-slate-100 text-[10px] font-bold tracking-[0.3em] uppercase text-slate-500 space-y-6">
                 <div className="flex justify-between items-center">
                    <span>DATA CLOUD</span>
-                   <span className="text-primary font-bold">FIRESTORE / ACTIVE</span>
+                   <span className="text-primary font-bold">{isDemoMode ? "LOCAL STORAGE / DEMO" : "FIRESTORE / ACTIVE"}</span>
                 </div>
                 <div className="flex justify-between items-center">
                    <span>SECURE HUB</span>
@@ -170,7 +176,7 @@ const Dashboard = () => {
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t border-slate-200">
                    <span>LATENCY</span>
-                   <span className="text-secondary tracking-normal">0.02ms</span>
+                   <span className="text-secondary tracking-normal">{isDemoMode ? "0.00ms" : "0.02ms"}</span>
                 </div>
              </div>
           </aside>
@@ -186,18 +192,18 @@ const Dashboard = () => {
                 exit={{ scale: 0.95, opacity: 0 }}
                 className="glass-card max-w-xl w-full"
               >
-                <h3 className="text-monolith text-3xl mb-8 uppercase text-center">INITIALIZE ENTRY</h3>
+                <h3 className="text-monolith text-3xl mb-8 uppercase text-center">ADD NEW EXPENSE</h3>
                 <form onSubmit={handleAddExpense} className="space-y-8">
                   <div className="grid grid-cols-2 gap-8">
                     <div>
-                      <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">SOURCE ACCOUNT</label>
+                      <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">ACCOUNT / PAYMENT METHOD</label>
                       <select 
                         required
                         className="input h-14 bg-white/5"
                         value={newExpense.accountId}
                         onChange={e => setNewExpense({...newExpense, accountId: e.target.value})}
                       >
-                        <option value="">SELECT SOURCE</option>
+                        <option value="">SELECT ACCOUNT</option>
                         {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name.toUpperCase()}</option>)}
                       </select>
                     </div>
@@ -214,18 +220,18 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">ENTRY DESCRIPTION</label>
+                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">EXPENSE DESCRIPTION</label>
                     <input 
                       required
                       className="input h-14 bg-white/5"
-                      placeholder="e.g. LOGISTICS / AWS"
+                      placeholder="e.g. Groceries, Rent, AWS"
                       value={newExpense.title}
                       onChange={e => setNewExpense({...newExpense, title: e.target.value})}
                     />
                   </div>
                   <div className="flex gap-4 pt-10">
-                    <button type="button" onClick={() => setIsAdding(false)} className="btn-secondary flex-1">Abort</button>
-                    <button type="submit" className="btn-primary flex-1">Commit</button>
+                    <button type="button" onClick={() => setIsAdding(false)} className="btn-secondary flex-1">Cancel</button>
+                    <button type="submit" className="btn-primary flex-1">Save</button>
                   </div>
                 </form>
               </motion.div>
@@ -240,10 +246,10 @@ const Dashboard = () => {
                 exit={{ scale: 0.95, opacity: 0 }}
                 className="glass-card max-w-md w-full"
               >
-                <h3 className="text-monolith text-2xl mb-8 uppercase text-center">SYNC {editingAccount.name}</h3>
+                <h3 className="text-monolith text-2xl mb-8 uppercase text-center">EDIT {editingAccount.name}</h3>
                 <form onSubmit={handleUpdateBalance} className="space-y-8">
                   <div>
-                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">CURRENT BALANCE (₹)</label>
+                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">ACCOUNT BALANCE (₹)</label>
                     <input 
                       required
                       type="number"
@@ -254,7 +260,7 @@ const Dashboard = () => {
                   </div>
                   <div className="flex gap-4">
                     <button type="button" onClick={() => setEditingAccount(null)} className="btn-secondary flex-1">Close</button>
-                    <button type="submit" className="btn-primary flex-1">Update</button>
+                    <button type="submit" className="btn-primary flex-1">Save</button>
                   </div>
                 </form>
               </motion.div>

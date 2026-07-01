@@ -53,15 +53,15 @@ const Expenses = () => {
         {/* Monolithic Header */}
         <header className="mb-20 flex items-end justify-between border-b border-slate-200 pb-10">
           <div>
-            <span className="text-secondary tracking-[0.4em] text-[10px] font-bold mb-4 uppercase inline-block">System Ledger / Transactional</span>
-            <h1 className="text-monolith text-6xl uppercase tracking-tighter">LEDGER ARCHIVE</h1>
+            <span className="text-secondary tracking-[0.4em] text-[10px] font-bold mb-4 uppercase inline-block">All Transactions / History</span>
+            <h1 className="text-monolith text-6xl uppercase tracking-tighter">TRANSACTION HISTORY</h1>
           </div>
           <button 
             onClick={() => setShowAddModal(true)}
             className="btn-primary h-14 flex items-center gap-3"
           >
              <span className="material-symbols-outlined text-base">add</span>
-             NEW ENTRY
+             ADD EXPENSE
           </button>
         </header>
 
@@ -70,7 +70,7 @@ const Expenses = () => {
            <span className="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-slate-400">search</span>
            <input 
               className="input h-16 pl-16 bg-slate-50 border-slate-200 font-bold uppercase tracking-widest text-xs" 
-              placeholder="FILTER LEDGER BY IDENTITY..." 
+              placeholder="SEARCH TRANSACTIONS..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
            />
@@ -80,10 +80,10 @@ const Expenses = () => {
         <div className="glass-card !p-0 border-slate-100 overflow-hidden shadow-sm">
            <div className="px-10 py-6 bg-slate-50 flex justify-between items-center text-[10px] font-bold tracking-[0.3em] uppercase text-slate-500">
               <div className="flex gap-20">
-                <span>IDENTITY / ORIGIN</span>
-                <span>CHRONOLOGICAL</span>
+                <span>TRANSACTION DETAILS</span>
+                <span>DATE</span>
               </div>
-              <span>LIQUIDITY</span>
+              <span>AMOUNT</span>
            </div>
            
            <div className="divide-y divide-slate-100">
@@ -113,7 +113,7 @@ const Expenses = () => {
               })}
               {filteredTransactions.length === 0 && (
                  <div className="p-32 text-center text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                    NO CORRESPONDING DATA RECOVERED
+                    NO TRANSACTIONS FOUND
                  </div>
               )}
            </div>
@@ -127,23 +127,23 @@ const Expenses = () => {
               animate={{ scale: 1, opacity: 1 }}
               className="glass-card max-w-2xl w-full"
             >
-              <h3 className="text-monolith text-3xl mb-10 uppercase text-center tracking-widest">INITIALIZE ENTRY</h3>
+              <h3 className="text-monolith text-3xl mb-10 uppercase text-center tracking-widest">ADD NEW EXPENSE</h3>
               <form onSubmit={handleAdd} className="space-y-8">
                 <div className="grid grid-cols-2 gap-8">
                   <div>
-                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">SOURCE ACCOUNT</label>
+                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">ACCOUNT / PAYMENT METHOD</label>
                     <select 
                       required
                       className="input h-14 bg-slate-50"
                       value={newExpense.accountId}
                       onChange={e => setNewExpense({...newExpense, accountId: e.target.value})}
                     >
-                      <option value="">SELECT SOURCE</option>
+                      <option value="">SELECT ACCOUNT</option>
                       {accounts.map(acc => <option key={acc.id} value={acc.id} className="text-primary">{acc.name.toUpperCase()}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">LIQUIDITY (₹)</label>
+                    <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">AMOUNT (₹)</label>
                     <input 
                       required
                       type="number"
@@ -156,17 +156,17 @@ const Expenses = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-8">
                    <div>
-                      <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">ENTRY DESCRIPTION</label>
+                      <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">EXPENSE DESCRIPTION</label>
                       <input 
                         required
                         className="input h-14 bg-white/5"
-                        placeholder="e.g. LOGISTICS / AWS"
+                        placeholder="e.g. Groceries, Rent, AWS"
                         value={newExpense.title}
                         onChange={e => setNewExpense({...newExpense, title: e.target.value})}
                       />
                    </div>
                    <div>
-                      <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">CATEGORY / TAG</label>
+                      <label className="block text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">CATEGORY</label>
                       <select 
                         required
                         className="input h-14 bg-white/5"
@@ -178,8 +178,8 @@ const Expenses = () => {
                    </div>
                 </div>
                 <div className="flex gap-4 pt-10">
-                  <button type="button" onClick={() => setShowAddModal(false)} className="btn-secondary flex-1">Abort</button>
-                  <button type="submit" className="btn-primary flex-1">Commit Entry</button>
+                  <button type="button" onClick={() => setShowAddModal(false)} className="btn-secondary flex-1">Cancel</button>
+                  <button type="submit" className="btn-primary flex-1">Save Expense</button>
                 </div>
               </form>
             </motion.div>

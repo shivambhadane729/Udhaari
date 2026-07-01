@@ -9,12 +9,12 @@ function cn(...inputs) {
 }
 
 const Sidebar = () => {
-  const { logout, user } = useAuth();
+  const { logout, user, isDemoMode } = useAuth();
 
   const navItems = [
-    { icon: 'grid_view', label: 'Ecosystem', path: '/dashboard' },
+    { icon: 'grid_view', label: 'Dashboard', path: '/dashboard' },
     { icon: 'finance', label: 'Transactions', path: '/expenses' },
-    { icon: 'groups_3', label: 'Monoliths', path: '/groups' },
+    { icon: 'groups_3', label: 'Groups', path: '/groups' },
   ];
 
   return (
@@ -24,7 +24,7 @@ const Sidebar = () => {
           <span className="material-symbols-outlined text-2xl font-bold">account_balance_wallet</span>
         </div>
         <div>
-          <span className="text-xl font-extrabold tracking-tighter block font-headline uppercase">UDHAARI / OBSIDIAN</span>
+          <span className="text-xl font-extrabold tracking-tighter block font-headline uppercase">UDHAARI FINANCE</span>
         </div>
       </div>
 
@@ -48,10 +48,21 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      <div className="mt-auto pt-10 border-t border-slate-200 space-y-8">
+      <div className="mt-auto pt-10 border-t border-slate-200 space-y-6">
+        {isDemoMode && (
+          <div className="px-6 py-4 bg-amber-50 border border-amber-200/60 flex flex-col gap-1 rounded-lg">
+            <span className="text-[9px] font-extrabold text-amber-800 uppercase tracking-widest flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-xs">warning</span> DEMO MODE ACTIVE
+            </span>
+            <span className="text-[9px] font-bold text-amber-600 uppercase tracking-tight leading-relaxed">
+              Firebase credentials missing. Storing all ledger items locally.
+            </span>
+          </div>
+        )}
+
         <div className="px-6 py-5 bg-slate-100 flex flex-col gap-2">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">AUTHORIZED OPERATOR</span>
-          <span className="text-xs font-bold truncate tracking-tight uppercase">{user?.email?.split('@')[0] || 'ENTITY'}</span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">CURRENT USER</span>
+          <span className="text-xs font-bold truncate tracking-tight uppercase">{user?.email?.split('@')[0] || 'USER'}</span>
         </div>
         
         <button
@@ -59,7 +70,7 @@ const Sidebar = () => {
           className="flex items-center gap-5 px-6 py-5 w-full text-slate-500 hover:text-accent hover:bg-accent/5 transition-all duration-300 font-headline text-xs font-bold uppercase tracking-[0.2em]"
         >
           <span className="material-symbols-outlined text-2xl">logout</span>
-          <span>Terminate</span>
+          <span>Sign Out</span>
         </button>
       </div>
     </aside>

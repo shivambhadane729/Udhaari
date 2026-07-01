@@ -43,12 +43,12 @@ const Groups = () => {
         {/* Monolithic Header */}
         <header className="mb-20 flex items-end justify-between border-b border-slate-200 pb-10">
           <div>
-            <span className="text-secondary tracking-[0.4em] text-[10px] font-bold mb-4 uppercase inline-block">Shared Ecosystems / Collective Status</span>
-            <h1 className="text-monolith text-6xl uppercase tracking-tighter">GROUP MONOLITHS</h1>
+            <span className="text-secondary tracking-[0.4em] text-[10px] font-bold mb-4 uppercase inline-block">Shared Groups / Balances</span>
+            <h1 className="text-monolith text-6xl uppercase tracking-tighter">GROUPS</h1>
           </div>
           <button className="btn-primary h-14 flex items-center gap-3">
              <span className="material-symbols-outlined text-base">group_add</span>
-             NEW MONOLITH
+             NEW GROUP
           </button>
         </header>
 
@@ -73,7 +73,7 @@ const Groups = () => {
                     </div>
                     <div>
                       <h3 className="font-extrabold text-sm uppercase tracking-tight">{group.name}</h3>
-                      <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mt-2 ${activeGroup?.id === group.id ? 'opacity-60' : 'text-slate-500'}`}>{group.members.length} ENTITIES ACTIVE</p>
+                      <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mt-2 ${activeGroup?.id === group.id ? 'opacity-60' : 'text-slate-500'}`}>{group.members.length} MEMBERS</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -108,7 +108,7 @@ const Groups = () => {
                       <div>
                         <h2 className="text-monolith text-4xl uppercase tracking-tighter">{activeGroup.name}</h2>
                         <button className="text-[10px] font-bold text-secondary uppercase tracking-[0.3em] hover:underline flex items-center gap-2 mt-4 transition-all">
-                          <span className="material-symbols-outlined text-base">person_add</span> SYNC ENTITIES
+                          <span className="material-symbols-outlined text-base">person_add</span> ADD MEMBERS
                         </button>
                       </div>
                     </div>
@@ -126,7 +126,7 @@ const Groups = () => {
                     {/* Progress Stats */}
                     <div className="grid grid-cols-2 gap-10">
                       <div className="bg-slate-50 p-8 border border-slate-100 rounded-2xl">
-                        <p className="text-[10px] font-bold text-slate-500 mb-6 uppercase tracking-widest">AGGREGATE SPEND / MTD</p>
+                        <p className="text-[10px] font-bold text-slate-500 mb-6 uppercase tracking-widest">TOTAL SPENT / THIS MONTH</p>
                         <p className="text-4xl font-bold tracking-tighter text-primary">{formatCurrency(activeGroup.totalSpent)}</p>
                         <div className="w-full h-[1px] bg-slate-200 mt-8 overflow-hidden">
                           <div className="h-full bg-primary w-2/3" />
@@ -143,7 +143,7 @@ const Groups = () => {
 
                     {/* Entities Grid */}
                     <div className="space-y-6">
-                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">PARTICIPATING ENTITIES</p>
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">GROUP MEMBERS</p>
                       <div className="grid sm:grid-cols-2 gap-3">
                         {activeGroup.members.map(member => (
                           <div key={member} className="flex items-center justify-between p-6 bg-white/5 border border-white/5 hover:bg-white hover:text-[#010413] transition-all duration-300 group">
@@ -161,7 +161,7 @@ const Groups = () => {
 
                     <div className="pt-10 mt-auto">
                        <button className="w-full h-16 border border-slate-200 bg-transparent text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500 hover:text-secondary hover:border-secondary transition-all flex items-center justify-center gap-4 rounded-xl">
-                          VIEW TRANSACTION PROTOCOL
+                          VIEW GROUP TRANSACTIONS
                           <span className="material-symbols-outlined text-lg">database</span>
                        </button>
                     </div>
@@ -172,8 +172,8 @@ const Groups = () => {
                   <div className="w-20 h-20 border border-white/10 flex items-center justify-center mb-10 transition-transform duration-1000 animate-pulse">
                     <span className="material-symbols-outlined text-5xl text-secondary">hub</span>
                   </div>
-                  <h3 className="text-monolith text-2xl uppercase tracking-widest mb-4">SELECT ECOSYSTEM</h3>
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest max-w-xs leading-[2.5] italic">Choose a verified group monolith to visualize aggregate data and shared liquidity streams.</p>
+                  <h3 className="text-monolith text-2xl uppercase tracking-widest mb-4">SELECT A GROUP</h3>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest max-w-xs leading-[2.5] italic">Select a group from the left to view members, totals, and shared expenses.</p>
                 </div>
               )}
             </AnimatePresence>
