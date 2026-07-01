@@ -9,7 +9,7 @@ import {
   serverTimestamp,
   runTransaction
 } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { db, isFirebaseConfigured } from '../lib/firebase';
 import { useAuth } from './AuthContext';
 
 const EcosystemContext = createContext();
@@ -38,6 +38,65 @@ export const EcosystemProvider = ({ children }) => {
 
     setLoading(true);
 
+    if (!isFirebaseConfigured) {
+      // Local Storage Mode
+      const localAccountsKey = `udhaari_accounts_${user.uid}`;
+      const localTransactionsKey = `udhaari_transactions_${user.uid}`;
+
+      let accountsData = [];
+      try {
+        const stored = localStorage.getItem(localAccountsKey);
+        if (stored) accountsData = JSON.parse(stored);
+      } catch (e) {
+        console.error("Failed to parse accounts from localStorage", e);
+      }
+
+      if (accountsData.length === 0) {
+        accountsData = [
+          { id: 'acc-1', name: 'Main Bank', balance: 12500, type: 'bank', icon: 'account_balance' },
+          { id: 'acc-2', name: 'Cash', balance: 1500, type: 'cash', icon: 'payments' },
+          { id: 'acc-3', name: 'Savings', balance: 5000, type: 'savings', icon: 'savings' }
+        ];
+        localStorage.setItem(localAccountsKey, JSON.stringify(accountsData));
+      }
+      setAccounts(accountsData);
+
+      let transactionsData = [];
+      try {
+        const stored = localStorage.getItem(localTransactionsKey);
+        if (stored) transactionsData = JSON.parse(stored);
+      } catch (e) {
+        console.error("Failed to parse transactions from localStorage", e);
+      }
+
+      if (transactionsData.length === 0) {
+        transactionsData = [
+          {
+            id: 'trans-1',
+            title: 'Office Supplies',
+            amount: 450,
+            category: 'Other',
+            accountId: 'acc-2',
+            date: new Date(Date.now() - 86400000).toISOString().split('T')[0]
+          },
+          {
+            id: 'trans-2',
+            title: 'AWS Cloud Hosting',
+            amount: 2499,
+            category: 'Subscription',
+            accountId: 'acc-1',
+            date: new Date().toISOString().split('T')[0]
+          }
+        ];
+        localStorage.setItem(localTransactionsKey, JSON.stringify(transactionsData));
+      }
+      setTransactions(transactionsData);
+      setLoading(false);
+
+      return;
+    }
+
+    // Firebase Mode
     // Listen to Accounts
     const qAccounts = query(collection(db, `users/${user.uid}/accounts`));
     const unsubscribeAccounts = onSnapshot(qAccounts, (snapshot) => {
@@ -92,6 +151,33 @@ export const EcosystemProvider = ({ children }) => {
   const addTransaction = async (data) => {
     if (!user) return;
     
+    if (!isFirebaseConfigured) {
+      const localAccountsKey = `udhaari_accounts_${user.uid}`;
+      const localTransactionsKey = `udhaari_transactions_${user.uid}`;
+
+      const updatedAccounts = accounts.map(acc => {
+        if (acc.id === data.accountId) {
+          return { ...acc, balance: acc.balance - data.amount };
+        }
+        return acc;
+      });
+
+      const newTrans = {
+        id: `trans-${Date.now()}`,
+        ...data,
+        userId: user.uid,
+        date: data.date || new Date().toISOString().split('T')[0]
+      };
+      const updatedTransactions = [newTrans, ...transactions];
+
+      localStorage.setItem(localAccountsKey, JSON.stringify(updatedAccounts));
+      localStorage.setItem(localTransactionsKey, JSON.stringify(updatedTransactions));
+
+      setAccounts(updatedAccounts);
+      setTransactions(updatedTransactions);
+      return;
+    }
+
     try {
       await runTransaction(db, async (transaction) => {
         const accountRef = doc(db, `users/${user.uid}/accounts`, data.accountId);
@@ -120,6 +206,21 @@ export const EcosystemProvider = ({ children }) => {
 
   const updateAccountBalance = async (accountId, newBalance) => {
     if (!user) return;
+
+    if (!isFirebaseConfigured) {
+      const localAccountsKey = `udhaari_accounts_${user.uid}`;
+      const updatedAccounts = accounts.map(acc => {
+        if (acc.id === accountId) {
+          return { ...acc, balance: parseFloat(newBalance) };
+        }
+        return acc;
+      });
+
+      localStorage.setItem(localAccountsKey, JSON.stringify(updatedAccounts));
+      setAccounts(updatedAccounts);
+      return;
+    }
+
     try {
       const accountRef = doc(db, `users/${user.uid}/accounts`, accountId);
       await updateDoc(accountRef, { balance: parseFloat(newBalance) });
